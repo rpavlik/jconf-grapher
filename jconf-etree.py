@@ -11,7 +11,8 @@ ns = "{http://www.vrjuggler.org/jccl/xsd/3.0/configuration}"
 ignoredElements = ["input_manager",
 	"display_system",
 	"corba_remote_reconfig",
-	"display_window" # for now, until we recurse into it to find the kb/mouse device, the user for surface projections, and proxies for simulator
+	"display_window", # for now, until we recurse into it to find the kb/mouse device, the user for surface projections, and proxies for simulator
+	"cluster_node"
 	]
 
 def sanitize(name):
