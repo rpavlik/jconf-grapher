@@ -12,6 +12,14 @@ ns = "{http://www.vrjuggler.org/jccl/xsd/3.0/configuration}"
 def sanitize(name):
 	return name.replace(" ", "_").replace(".jconf", "").replace("/", "_").replace("\\", "_")
 
+def addLink(src, dest, label = None):
+	if label is None:
+		links.append("%s -> %s;" % (sanitize(src), sanitize(dest)))
+	else:
+		links.append('%s -> %s [label = "%s"];' % (sanitize(src), sanitize(dest), label))
+
+def handleAlias(elt):
+	addLink(elt.get("name"), list(elt)[0].text)
 def processFile(filename):
 	print("subgraph cluster_%s {" % sanitize(filename))
 
@@ -21,35 +29,26 @@ def processFile(filename):
 
 	tree = et.parse(filename)
 	root = tree.getroot()
-	print root
-
 
 	for firstLevel in list(root):
-		print firstLevel
 		if firstLevel.tag != ns + "elements":
+			# This means it's an include - want to handle these eventually
 			continue
 
 		for elt in list(firstLevel):
 			eltName = elt.get("name")
 			print('%s [label = "%s"];' % (sanitize(eltName), eltName))
-			print(elt)
-			print(elt.get("name"))
-			#elements[elt.get("name")] = elt
 			if elt.tag == ns + "alias":
-				print("this is an alias")
+				handleAlias(elt)
+			
+				
 
 	print("}")
-
-
-
-	print "--------"
-
-	elements = root.get("{http://www.vrjuggler.org/jccl/xsd/3.0/configuration}elements")
-	print elements
 
 
 
 print("digraph {")
 
 processFile('IS900TwoWall.jconf')
+print( "\n".join(links))
 print("}")
