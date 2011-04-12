@@ -1,0 +1,4 @@
+#!/bin/bash
+#scriptdir=$(dirname $(readlink "$0"))
+scriptdir="."
+python $scriptdir/jconf-etree.py $* | dot -Tpdf -o$1.pdf
