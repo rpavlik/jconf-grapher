@@ -30,9 +30,11 @@ ignoredElements = ["input_manager",
 	]
 
 def sanitize(name):
+	"""Turn an arbitrary string into something we can use as an ID in a dot file"""
 	return name.replace(" ", "_").replace(".jconf", "").replace("/", "_").replace("\\", "_").replace(".", "_").replace("-", "_")
 
 def outputNode(name, eltType = "", style = ""):
+	"""Print dot code to display a node as requested"""
 	if "proxy" in eltType:
 		pass
 	elif "alias" in eltType:
@@ -46,7 +48,9 @@ def outputNode(name, eltType = "", style = ""):
 	else:
 		label = "%s\\n[%s]" % (name, eltType)
 	print('%s [%slabel = "%s"];' % (sanitize(name), style, label))
+
 def addNode(elt, style = ""):
+	"""Given an element, output the appropriate dot code for the node and mark it as 'recognized'"""
 	eltName = elt.get("name")
 	eltType = elt.tag.replace(ns, "")
 	definedNodes.append(sanitize(eltName))
@@ -56,6 +60,7 @@ def addNode(elt, style = ""):
 	outputNode(eltName, eltType, style)
 
 def addLink(src, dest, label = None):
+	"""Add a link between src and dest, with an optional label"""
 	usedNodes.extend([sanitize(src), sanitize(dest)])
 	if label is None:
 		links.append("%s -> %s;" % (sanitize(src), sanitize(dest)))
@@ -63,9 +68,11 @@ def addLink(src, dest, label = None):
 		links.append('%s -> %s [label = "%s"];' % (sanitize(src), sanitize(dest), label))
 
 def handleAlias(elt):
+	"""Add the link implied by an alias element."""
 	addLink(elt.get("name"), elt.findtext(ns + "proxy"))
 
 def handleProxy(elt, proxyType = None):
+	"""Add the link implied by a proxy element."""
 	if proxyType is not None:
 		label = proxyType
 		unit = elt.findtext(ns + "unit")
@@ -76,18 +83,19 @@ def handleProxy(elt, proxyType = None):
 		addLink(elt.get("name"), elt.findtext(ns + "device"))
 
 def handleUser(elt):
+	"""Add the head position link implied by a user element."""
 	addLink(elt.get("name"), elt.findtext(ns + "head_position"), "Head Position")
 
 def handleSimulated(elt):
+	"""Add the kb/mouse proxy link implied by a simulated device element."""
 	addLink(elt.get("name"), elt.findtext(ns + "keyboard_mouse_proxy"), "uses")
 
 def processFile(filename):
+	"""Print a cluster of nodes based on a jconf file, and process any links"""
 	print("subgraph cluster_%s {" % sanitize(filename))
 
 	print('label = "%s";' % filename)
 	print('style = "dotted";')
-
-
 
 	tree = et.parse(filename)
 	root = tree.getroot()
@@ -105,7 +113,11 @@ def processFile(filename):
 				if elt.tag in [ns + x for x in ignoredElements]:
 					continue
 
+				# Add nodes for the rest of the elements
 				addNode(elt)
+
+				# Some nodes contain information on relationships
+				# that we want to depict in the graph.
 				if elt.tag == ns + "alias":
 					handleAlias(elt)
 
@@ -136,6 +148,7 @@ def processFile(filename):
 	return included
 
 def addUndefinedNodes():
+	"""Output all nodes referenced but not defined, with special formatting"""
 
 	undefined = [ x for x in usedNodes if x not in definedNodes ]
 	if len(undefined) > 0:
@@ -147,6 +160,7 @@ def addUndefinedNodes():
 		print("}")
 
 def processFiles(files):
+	"""Process all jconf files passed, printing the complete dot output."""
 
 	print("digraph {")
 	print('size="8.5,11"')
