@@ -1,0 +1,27 @@
+jconf2dot
+=========
+
+Quick Intro
+-----------
+`jconf2dot.py` takes as parameters one or more jconf files. It prints
+Graphviz ("dot") format descriptions of the relationships in the jconf
+files to standard output, which you can redirect to file or pipe right
+to the `dot` executable.
+
+Requires at least Python 2.5, since it uses `xml.etree.ElementTree`
+
+`jconf2pdf` is a simple shell script wrapper for jconf2dot. It passes
+along its arguments to jconf2dot, pipes the output to dot, and saves a
+PDF to the name of the first input file with ".pdf" appended. It's very
+minimal: if you want different output, just look at it as a guide - the
+"works" is really just a one-line pipeline.
+
+
+Output Diagram Key
+------------------
+
+* Grey filled ovals: proxy aliases
+* Outlined ovals: device proxies
+* 3D Boxes: other elements, assumed to be decives
+* "Egg" shapes: Users
+* Dotted-bordered boxes: Elements defined in a particular file. Nesting of boxes shows inclusion.
