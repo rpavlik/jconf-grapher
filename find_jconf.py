@@ -67,7 +67,6 @@ def __createSearchPath():
 
 	possibilities = [ os.path.join(vj_base_dir, "share", confdir, "data/configFiles") for confdir in subdirsOfShare ]
 	for fulldir in possibilities:
-		print " ---- %s" % fulldir
 		if os.path.exists(fulldir):
 			mypath.append(fulldir)
 
