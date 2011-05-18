@@ -1,5 +1,5 @@
-jconf2dot
-=========
+jconf graphing tools
+====================
 
 *Homepage:* https://github.com/rpavlik/jconf-grapher/
 
@@ -25,11 +25,11 @@ Requires
 
 	* Ubuntu/Debian: `sudo apt-get install graphviz`
 
-* Additional dependencies for the minimal "jconf2pdf" wrapper script:
+* Additional dependencies for the minimal `jconf2pdf` wrapper script:
 
 	* Bash shell - you probably already have this on any *nix system.
 
-* Additional dependencies for the GUI viewer:
+* Additional dependencies for the GUI viewer `jconf-viz`:
 
 	* PyGTK 2.10 or greater - Windows users, see the [XDot homepage][3]
 		for download links for these dependencies.
