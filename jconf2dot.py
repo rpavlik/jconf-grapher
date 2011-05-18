@@ -96,6 +96,12 @@ class ConfigurationContext(object):
 		"""Add the kb/mouse proxy link implied by a simulated device element."""
 		self.addLink(elt.get("name"), elt.findtext(ns + "keyboard_mouse_proxy"), "uses")
 
+	def handleSimulatedRelativePosition(self, elt):
+		"""Add the links implied by a simulated_relative_position element."""
+		self.addLink(elt.get("name"), elt.findtext(ns + "base_frame_proxy"), "base frame")
+		self.addLink(elt.get("name"), elt.findtext(ns + "relative_proxy"), "relative device")
+
+
 	def processFile(self, arg):
 		"""Print a cluster of nodes based on a jconf file, and process any links"""
 		fullpath, directory, filename = arg
@@ -142,6 +148,9 @@ class ConfigurationContext(object):
 
 					elif elt.tag == ns + "user":
 						self.handleUser(elt)
+
+					elif elt.tag == ns + "simulated_relative_position":
+						self.handleSimulatedRelativePosition(elt)
 
 					elif ns + "simulated" in elt.tag:
 						self.handleSimulated(elt)
