@@ -21,6 +21,14 @@ Requires
 * Additional dependencies for the minimal "jconf2pdf" wrapper script:
 
 	* Bash shell - you probably already have this on any *nix system.
+
+* Additional dependencies for the GUI viewer:
+
+	* PyGTK 2.10 or greater - Windows users, see the [XDot homepage][3]
+		for download links for these dependencies.
+
+		* Ubuntu/Debian: `sudo apt-get install python-gtk2`
+
 Details
 -------
 `jconf2dot.py` takes as parameters one or more jconf files. It prints
@@ -59,6 +67,28 @@ and available subject to the following copyright and license:
 > (See accompanying file `LICENSE_1_0.txt` or copy at
 > <http://www.boost.org/LICENSE_1_0.txt>)
 
+The visualizer uses [XDot][3], by Jose Fonseca, downloaded 18 May 2011
+from <http://xdot.jrfonseca.googlecode.com/hg/xdot.py>. It is subject to
+the following copyright and license (the LGPL text is in the
+subdirectory xdot):
+
+> Copyright 2008 Jose Fonseca
+>
+> This program is free software: you can redistribute it and/or modify it
+> under the terms of the GNU Lesser General Public License as published
+> by the Free Software Foundation, either version 3 of the License, or
+> (at your option) any later version.
+>
+> This program is distributed in the hope that it will be useful,
+> but WITHOUT ANY WARRANTY; without even the implied warranty of
+> MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+> GNU Lesser General Public License for more details.
+>
+> You should have received a copy of the GNU Lesser General Public License
+> along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+
 
 [1]: http://vrjuggler.googlecode.com/ "VR Juggler"
 [2]: http://www.graphviz.org/ "Graphviz"
+[3]: http://code.google.com/p/jrfonseca/wiki/XDot
