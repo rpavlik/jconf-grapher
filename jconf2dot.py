@@ -11,6 +11,7 @@
 
 import xml.etree.cElementTree as et
 import sys
+from find_jconf import findInSearchPath
 
 links = []
 definedNodes = []
@@ -28,6 +29,7 @@ ignoredElements = ["input_manager",
 	"start_barrier_plugin",
 	"application_data"
 	]
+
 
 def sanitize(name):
 	"""Turn an arbitrary string into something we can use as an ID in a dot file"""
@@ -90,21 +92,22 @@ def handleSimulated(elt):
 	"""Add the kb/mouse proxy link implied by a simulated device element."""
 	addLink(elt.get("name"), elt.findtext(ns + "keyboard_mouse_proxy"), "uses")
 
-def processFile(filename):
+def processFile(arg):
 	"""Print a cluster of nodes based on a jconf file, and process any links"""
+	fullpath, directory, filename = arg
 	print("subgraph cluster_%s {" % sanitize(filename))
 
 	print('label = "%s";' % filename)
 	print('style = "dotted";')
 
-	tree = et.parse(filename)
+	tree = et.parse(fullpath)
 	root = tree.getroot()
 	included = []
 
 	for firstLevel in list(root):
 		if firstLevel.tag == ns + "include":
 			# recurse into included file
-			processFile(firstLevel.text)
+			processFile(findInSearchPath(firstLevel.text, [directory]))
 
 		elif firstLevel.tag == ns + "elements":
 
@@ -165,8 +168,8 @@ def processFiles(files):
 	print("digraph {")
 	print('size="8.5,11"')
 	print('ratio="compress"')
-	for file in files:
-		processFile(file)
+	for fn in files:
+		processFile(findInSearchPath(fn))
 	addUndefinedNodes()
 	print( "\n".join(links))
 	print("}")
