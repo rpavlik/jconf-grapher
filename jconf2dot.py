@@ -33,6 +33,7 @@ class ConfigurationContext(object):
 		self.links = []
 		self.definedNodes = []
 		self.usedNodes = []
+		self.fullPaths = []
 		self.filequeue = []
 		self.lines = []
 		self.processFiles(files)
@@ -105,6 +106,7 @@ class ConfigurationContext(object):
 	def processFile(self, arg):
 		"""Print a cluster of nodes based on a jconf file, and process any links"""
 		fullpath, directory, filename = arg
+		self.fullPaths.append(fullpath)
 		self.lines.append("subgraph cluster_%s {" % sanitize(filename))
 
 		self.lines.append('label = "%s";' % filename)

@@ -125,7 +125,7 @@ class DotWindow(gtk.Window):
         try:
             config = jconf2dot.ConfigurationContext([filename])
             self.set_dotcode(config.dotcode, filename)
-            self.filename = filename
+            self.filename = config.fullPaths[0]
         except IOError, ex:
             dlg = gtk.MessageDialog(type=gtk.MESSAGE_ERROR,
                                     message_format=str(ex),
