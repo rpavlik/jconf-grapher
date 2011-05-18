@@ -37,7 +37,7 @@ def findInSearchPath(fn, extraSearchPaths=[]):
 	# Handle absolute paths
 	if os.path.isabs(fn):
 		if not os.path.exists(fn):
-			raise jconf_exceptions.AbsoluteConfigFileNotFound(fn)
+			raise AbsoluteConfigFileNotFound(fn)
 		return fn, os.path.dirname(fn), os.path.basename(fn)
 
 	# not sure why this line is necessary...
@@ -53,5 +53,5 @@ def findInSearchPath(fn, extraSearchPaths=[]):
 			return attempt, os.path.dirname(attempt), fn
 
 	# If we get this far we failed
-	raise jconf_exceptions.ConfigFileNotFoundError(fn, paths)
+	raise ConfigFileNotFoundError(fn, paths)
 
