@@ -25,14 +25,24 @@ Requires
 
 	* Ubuntu/Debian: `sudo apt-get install graphviz`
 
+	* Windows: You can use the installer from <http://www.graphviz.org>.
+		You may need to reboot so that graphviz is in your PATH. To
+		test, click Start, Run, and enter `dot`. If you see an error,
+		it's not in the path. If it opens a black window and just sits
+		there, then you're good to go. (Just close the window manually.)
+
 * Additional dependencies for the minimal `jconf2pdf` wrapper script:
 
 	* Bash shell - you probably already have this on any *nix system.
 
 * Additional dependencies for the GUI viewer `jconf-viz`:
 
-	* PyGTK 2.10 or greater - Windows users, see the [XDot homepage][3]
-		for download links for these dependencies.
+	* GTK+ and PyGTK 2.10 or greater
+
+		* Windows: Depending on the version of Python you installed,
+			choose and install the matching "all-in-one" installer from
+			<http://www.pygtk.org/downloads.html>. The default install
+			options are correct.
 
 		* Ubuntu/Debian: `sudo apt-get install python-gtk2`
 
