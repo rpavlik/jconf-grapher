@@ -1,22 +1,6 @@
 
 import os
 
-searchpath = []
-
-subdirsOfShare = [ "vrjuggler-3.0",
-	"vrjuggler-2.2",
-	"vrjuggler"
-	]
-
-searchpath.append(os.getcwd())
-# Use VJ_BASE_DIR to find additional search paths.
-if "VJ_BASE_DIR" in os.environ:
-	vj_base_dir = os.environ["VJ_BASE_DIR"]
-	possibilities = [ os.path.join(vj_base_dir, confdir) for confdir in subdirsOfShare ]
-	for fulldir in possibilities:
-		if os.path.exists(fulldir):
-			searchpath.append(fulldir)
-
 class ConfigFileNotFoundError(Exception):
 	def __init__(self, fn, usedpath):
 		self.fn = fn
@@ -40,12 +24,10 @@ def findInSearchPath(fn, extraSearchPaths=[]):
 			raise AbsoluteConfigFileNotFound(fn)
 		return fn, os.path.dirname(fn), os.path.basename(fn)
 
-	# not sure why this line is necessary...
-	global searchpath
 
 	# Create a list of paths to search this time
 	paths = []
-	paths.extend(searchpath)
+	paths.extend(jconfSearchPath)
 	paths.extend(extraSearchPaths)
 	for searchpath in paths:
 		attempt = os.path.join(searchpath, fn)
@@ -55,3 +37,39 @@ def findInSearchPath(fn, extraSearchPaths=[]):
 	# If we get this far we failed
 	raise ConfigFileNotFoundError(fn, paths)
 
+def __createSearchPath():
+	mypath = []
+
+	# Search current directory
+	mypath.append(os.getcwd())
+
+	# Search in JCCL_CFG_PATH and VJ_CFG_PATH
+	if "JCCL_CFG_PATH" in os.environ:
+		mypath.extend([path for path in os.environ["JCCL_CFG_PATH"].split(os.pathsep) if not path == ""])
+	if "VJ_CFG_PATH" in os.environ:
+		mypath.extend([path for path in os.environ["VJ_CFG_PATH"].split(os.pathsep) if not path == ""])
+
+	# Search relative to $VJ_DATA_DIR/data/configFiles, if set
+	if "VJ_DATA_DIR" in os.environ:
+		possibility = os.path.join(os.environ["VJ_DATA_DIR"], "data/configFiles")
+		if os.path.exists(possibility):
+			mypath.append(possibility)
+
+	# Use VJ_BASE_DIR (defaulting to /usr) to find additional search paths.
+	vj_base_dir = "/usr"
+	if "VJ_BASE_DIR" in os.environ:
+		vj_base_dir = os.environ["VJ_BASE_DIR"]
+
+	subdirsOfShare = [ "vrjuggler-3.0",
+		"vrjuggler-2.2",
+		"vrjuggler"
+		]
+
+	possibilities = [ os.path.join(vj_base_dir, "share", confdir, "data/configFiles") for confdir in subdirsOfShare ]
+	for fulldir in possibilities:
+		print " ---- %s" % fulldir
+		if os.path.exists(fulldir):
+			mypath.append(fulldir)
+
+	return [ os.path.normcase(os.path.normpath(eachDir)) for eachDir in mypath ]
+jconfSearchPath = __createSearchPath()
