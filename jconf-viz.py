@@ -47,6 +47,7 @@ class DotWindow(gtk.Window):
         gtk.Window.__init__(self)
 
         self.graph = Graph()
+        self.filename = None
 
         window = self
 
