@@ -34,7 +34,6 @@ class ConfigurationContext(object):
 		self.definedNodes = []
 		self.usedNodes = []
 		self.fullPaths = []
-		self.filequeue = []
 		self.lines = []
 		self.processFiles(files)
 
@@ -114,7 +113,6 @@ class ConfigurationContext(object):
 
 		tree = et.parse(fullpath)
 		root = tree.getroot()
-		included = []
 
 		for firstLevel in list(root):
 			if firstLevel.tag == ns + "include":
@@ -163,7 +161,6 @@ class ConfigurationContext(object):
 
 
 		self.lines.append("}")
-		return included
 
 	def addUndefinedNodes(self):
 		"""Output all nodes referenced but not defined, with special formatting"""
