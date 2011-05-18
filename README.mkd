@@ -1,6 +1,8 @@
 jconf2dot
 =========
 
+*Homepage:* https://github.com/rpavlik/jconf-grapher/
+
 A program to parse [VR Juggler][1] jconf configuration files and output
 [Graphviz][2] "dot" language input, which can be parsed by the Graphviz
 tools to create a human-usable map of the components and relationships
@@ -31,6 +33,12 @@ Requires
 
 Details
 -------
+`jconf-viz.py` is a GUI application for exploring a visualization of a
+jconf file. You can pass a file at the command line, or open one in the
+GUI. Click a node to make it the center, left-drag in a blank area or
+middle (wheel) drag anywhere to move, use the scroll wheel to zoom. It
+will auto-reload to reflect file changes at most once a second.
+
 `jconf2dot.py` takes as parameters one or more jconf files. It prints
 Graphviz ("dot") format descriptions of the relationships in the jconf
 files to standard output, which you can redirect to file or pipe right
@@ -41,7 +49,6 @@ along its arguments to jconf2dot, pipes the output to dot, and saves a
 PDF to the name of the first input file with ".pdf" appended. It's very
 minimal: if you want different output, just look at it as a guide - the
 "works" is really just a one-line pipeline.
-
 
 Output Diagram Key
 ------------------
@@ -56,6 +63,9 @@ Output Diagram Key
 Author and License
 ------------------
 Ryan Pavlik, <rpavlik@iastate.edu> <abiryan@ryand.net>
+<http://academic.cleardefinition.com>
+
+This is free and open-source software. Enhancements are gladly welcomed.
 
 `jconf2dot.py`, `jconf2pdf`, and `find_jconf.py` are all written by me,
 and available subject to the following copyright and license:
@@ -68,11 +78,13 @@ and available subject to the following copyright and license:
 > <http://www.boost.org/LICENSE_1_0.txt>)
 
 The visualizer uses [XDot][3], by Jose Fonseca, downloaded 18 May 2011
-from <http://xdot.jrfonseca.googlecode.com/hg/xdot.py>. It is subject to
-the following copyright and license (the LGPL text is in the
-subdirectory xdot):
+from <http://xdot.jrfonseca.googlecode.com/hg/xdot.py>. The
+`jconf-viz.py` application is based on code from XDot, so both XDot and
+the visualizer app are subject to the following copyright and license
+(the LGPL text is in the subdirectory xdot):
 
 > Copyright 2008 Jose Fonseca
+> Copyright 2011 Iowa State University
 >
 > This program is free software: you can redistribute it and/or modify it
 > under the terms of the GNU Lesser General Public License as published
