@@ -3,12 +3,17 @@ jconf2dot
 
 *Homepage:* https://github.com/rpavlik/jconf-grapher/
 
-A program to parse [VR Juggler][1] jconf configuration files and output
-[Graphviz][2] "dot" language input, which can be parsed by the Graphviz
-tools to create a human-usable map of the components and relationships
-in the configuration files. VR Juggler configurations have several
-layers of abstraction and indirection (devices, device proxies, proxy
-aliases) and this tool can help make the relationships clearer.
+At its core, this is a program to parse [VR Juggler][1] jconf
+configuration files and output [Graphviz][2] "dot" language input, which
+can be parsed by the Graphviz tools to create a human-usable map of the
+components and relationships in the configuration files. VR Juggler
+configurations have several layers of abstraction and indirection
+(devices, device proxies, proxy aliases) and this tool can help make the
+relationships clearer.
+
+A GUI for exploring the rendered output is included.
+
+![jconf-viz screenshot][4]
 
 Requires
 --------
@@ -103,4 +108,5 @@ the visualizer app are subject to the following copyright and license
 
 [1]: http://vrjuggler.googlecode.com/ "VR Juggler"
 [2]: http://www.graphviz.org/ "Graphviz"
-[3]: http://code.google.com/p/jrfonseca/wiki/XDot
+[3]: http://code.google.com/p/jrfonseca/wiki/XDot "XDot homepage"
+[4]: https://github.com/rpavlik/jconf-grapher/raw/master/jconf-viz-screenshot.png "jconv-viz screenshot"
