@@ -23,7 +23,7 @@ class ConfigFileNotFoundError(Exception):
 		self.usedpath = usedpath
 
 	def __str__(self):
-		return "Could not find config file %s in the search path! Searched: %s" % (self.fn, "\n".join(self.usedpath))
+		return "Could not find config file %s in the search path! Searched: %s" % (self.fn, self.usedpath)
 
 class AbsoluteConfigFileNotFound(Exception):
 	def __init__(self, fn):
