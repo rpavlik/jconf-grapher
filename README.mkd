@@ -1,14 +1,32 @@
 jconf2dot
 =========
 
-Quick Intro
------------
+A program to parse [VR Juggler][1] jconf configuration files and output
+[Graphviz][2] "dot" language input, which can be parsed by the Graphviz
+tools to create a human-usable map of the components and relationships
+in the configuration files. VR Juggler configurations have several
+layers of abstraction and indirection (devices, device proxies, proxy
+aliases) and this tool can help make the relationships clearer.
+
+Requires
+--------
+* Python 2.x, at least 2.5 Python 2.5 (uses `xml.etree.ElementTree` to
+	parse the XML-based jconf files)
+
+* Graphviz (dot) tools to convert the output into an image - not
+	technically required but for any reasonable usage you want this.
+
+	* Ubuntu/Debian: `sudo apt-get install graphviz`
+
+* Additional dependencies for the minimal "jconf2pdf" wrapper script:
+
+	* Bash shell - you probably already have this on any *nix system.
+Details
+-------
 `jconf2dot.py` takes as parameters one or more jconf files. It prints
 Graphviz ("dot") format descriptions of the relationships in the jconf
 files to standard output, which you can redirect to file or pipe right
 to the `dot` executable.
-
-Requires at least Python 2.5, since it uses `xml.etree.ElementTree`
 
 `jconf2pdf` is a simple shell script wrapper for jconf2dot. It passes
 along its arguments to jconf2dot, pipes the output to dot, and saves a
@@ -24,4 +42,23 @@ Output Diagram Key
 * Outlined ovals: device proxies
 * 3D Boxes: other elements, assumed to be decives
 * "Egg" shapes: Users
-* Dotted-bordered boxes: Elements defined in a particular file. Nesting of boxes shows inclusion.
+* Dotted-bordered boxes: Elements defined in a particular file. Nesting
+	of boxes shows inclusion.
+
+Author and License
+------------------
+Ryan Pavlik, <rpavlik@iastate.edu> <abiryan@ryand.net>
+
+`jconf2dot.py`, `jconf2pdf`, and `find_jconf.py` are all written by me,
+and available subject to the following copyright and license:
+
+> Copyright Iowa State University 2011
+>
+> Distributed under the Boost Software License, Version 1.0.
+>
+> (See accompanying file `LICENSE_1_0.txt` or copy at
+> <http://www.boost.org/LICENSE_1_0.txt>)
+
+
+[1]: http://vrjuggler.googlecode.com/ "VR Juggler"
+[2]: http://www.graphviz.org/ "Graphviz"
