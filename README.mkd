@@ -30,6 +30,8 @@ Requires
 		test, click Start, Run, and enter `dot`. If you see an error,
 		it's not in the path. If it opens a black window and just sits
 		there, then you're good to go. (Just close the window manually.)
+	* Mac with [homebrew](http://mxcl.github.com/homebrew/):
+		`brew install graphviz`      
 
 * Additional dependencies for the minimal `jconf2pdf` wrapper script:
 
@@ -45,6 +47,13 @@ Requires
 			options are correct.
 
 		* Ubuntu/Debian: `sudo apt-get install python-gtk2`
+  		
+		* Mac with [homebrew](http://mxcl.github.com/homebrew/):
+  			download [pycairo.rb](https://raw.github.com/jscasallas/homebrew/master/Library/Formula/pycairo.rb),
+			[pygobject.rb](https://raw.github.com/jscasallas/homebrew/master/Library/Formula/pygobject.rb) and
+			[pygtk.rb](https://raw.github.com/jscasallas/homebrew/master/Library/Formula/pygtk.rb)
+			to /usr/local/Library/Formula. Then `brew install pygtk`.
+                        
 
 Details
 -------
@@ -53,6 +62,12 @@ jconf file. You can pass a file at the command line, or open one in the
 GUI. Click a node to make it the center, left-drag in a blank area or
 middle (wheel) drag anywhere to move, use the scroll wheel to zoom. It
 will auto-reload to reflect file changes at most once a second.
+
+(Mac users: you need to use X11 to execute the application
+to do so, right click on `jconf-viz.py`>"Open With">"Other...".
+Make sure "All Applications" is selected in the "Enable:" dropdown menu,
+choose /Applications/Utilities/X11, check the "Always open with box"
+and click on Open.)
 
 `jconf2dot.py` takes as parameters one or more jconf files. It prints
 Graphviz ("dot") format descriptions of the relationships in the jconf
