@@ -3,6 +3,17 @@ jconf graphing tools
 
 *Homepage:* https://github.com/rpavlik/jconf-grapher/
 
+Project Status
+--------------
+
+This worked to some degree when I last used it.
+However, I have moved on, no longer need this, and have no capacity
+to meaningfully maintain it.
+
+**Unmaintained**
+
+Intro
+-----
 At its core, this is a program to parse [VR Juggler][1] jconf
 configuration files and output [Graphviz][2] "dot" language input, which
 can be parsed by the Graphviz tools to create a human-usable map of the
